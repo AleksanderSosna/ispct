@@ -25,6 +25,7 @@ const LandingPage: React.FC = () => {
     const [shop2Index, setShop2Index] = useState<number>(0);
 
     const [selectedCountry, setSelectedCountry] = useState<string>("pl");
+    const [selectedOffersBy, setSelectedOffersBy] = useState<"byValue" | "byDiscount">("byValue");
     const [visibleShops, setVisibleShops] = useState<string[]>(["ikea", "ecco"]);
 
     const getCurrencyCode = (country: string): string => {
@@ -52,7 +53,7 @@ const LandingPage: React.FC = () => {
                         byDiscount: Offer[];
                     };
                 }) => {
-                    setOffers(data[newCountry]["byValue"]);
+                    setOffers(data[newCountry][selectedOffersBy]);
                     setLoading(false);
                 }
             )
@@ -73,8 +74,52 @@ const LandingPage: React.FC = () => {
                                 byDiscount: Offer[];
                             };
                         }) => {
-                            if (shop === "ikea") setShop1Offers(data[newCountry]["byValue"]);
-                            else if (shop === "ecco") setShop2Offers(data[newCountry]["byValue"]);
+                            if (shop === "ikea") setShop1Offers(data[newCountry][selectedOffersBy]);
+                            else if (shop === "ecco") setShop2Offers(data[newCountry][selectedOffersBy]);
+                        }
+                    )
+            );
+        }
+        Promise.all(fetchPromises).catch((error) => console.error("Error fetching shop offers:", error));
+    };
+
+    const handleOffersByChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const newOffersBy = event.target.value as "byValue" | "byDiscount";
+        setSelectedOffersBy(newOffersBy);
+        setLoading(true);
+
+        fetch(`https://stores-api-polyu.ondigitalocean.app/api/offers/best.json`)
+            .then((response) => response.json())
+            .then(
+                (data: {
+                    [countryCode: string]: {
+                        byValue: Offer[];
+                        byDiscount: Offer[];
+                    };
+                }) => {
+                    setOffers(data[selectedCountry][newOffersBy]);
+                    setLoading(false);
+                }
+            )
+            .catch((error) => {
+                console.error("Error fetching offers:", error);
+                setLoading(false);
+            });
+
+        const fetchPromises = [];
+        for (const shop of visibleShops) {
+            fetchPromises.push(
+                fetch(`https://stores-api-polyu.ondigitalocean.app/api/offers/${shop}.json`)
+                    .then((res) => res.json())
+                    .then(
+                        (data: {
+                            [countryCode: string]: {
+                                byValue: Offer[];
+                                byDiscount: Offer[];
+                            };
+                        }) => {
+                            if (shop === "ikea") setShop1Offers(data[selectedCountry][newOffersBy]);
+                            else if (shop === "ecco") setShop2Offers(data[selectedCountry][newOffersBy]);
                         }
                     )
             );
@@ -113,7 +158,7 @@ const LandingPage: React.FC = () => {
                         byDiscount: Offer[];
                     };
                 }) => {
-                    setOffers(data[selectedCountry]["byValue"]);
+                    setOffers(data[selectedCountry][selectedOffersBy]);
                     setLoading(false);
                 }
             )
@@ -134,8 +179,8 @@ const LandingPage: React.FC = () => {
                                 byDiscount: Offer[];
                             };
                         }) => {
-                            if (shop === "ikea") setShop1Offers(data[selectedCountry]["byValue"]);
-                            else if (shop === "ecco") setShop2Offers(data[selectedCountry]["byValue"]);
+                            if (shop === "ikea") setShop1Offers(data[selectedCountry][selectedOffersBy]);
+                            else if (shop === "ecco") setShop2Offers(data[selectedCountry][selectedOffersBy]);
                         }
                     )
             );
@@ -172,6 +217,18 @@ const LandingPage: React.FC = () => {
                                         ecco
                                     </option>
                                 </select>
+                            </div>
+                        </div>
+                        <div className="navbar-item">
+                            <div className="control has-icons-left">
+                                <div className="select">
+                                    <select value={selectedOffersBy} onChange={handleOffersByChange}>
+                                        <option value="byValue" selected>
+                                            by value
+                                        </option>
+                                        <option value="byDiscount">by discount</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div className="navbar-item">
