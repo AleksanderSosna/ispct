@@ -1,0 +1,9 @@
+node_modules
+tsconfig.json
+package.json
+package-lock.json
+public
+build
+.eslintrc.json
+.prettierrc.json
+salt
