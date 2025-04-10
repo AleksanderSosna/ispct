@@ -26,7 +26,6 @@ const LandingPage: React.FC = () => {
 
     const [selectedCountry, setSelectedCountry] = useState<string>("pl");
     const [selectedOffersBy, setSelectedOffersBy] = useState<"byValue" | "byDiscount">("byValue");
-    const [visibleShops, setVisibleShops] = useState<string[]>(["ikea", "ecco"]);
 
     const getCurrencyCode = (country: string): string => {
         switch (country) {
@@ -63,7 +62,7 @@ const LandingPage: React.FC = () => {
             });
 
         const fetchPromises = [];
-        for (const shop of visibleShops) {
+        for (const shop of ["ikea", "ecco"]) {
             fetchPromises.push(
                 fetch(`https://stores-api-polyu.ondigitalocean.app/api/offers/${shop}.json`)
                     .then((res) => res.json())
@@ -107,7 +106,7 @@ const LandingPage: React.FC = () => {
             });
 
         const fetchPromises = [];
-        for (const shop of visibleShops) {
+        for (const shop of ["ikea", "ecco"]) {
             fetchPromises.push(
                 fetch(`https://stores-api-polyu.ondigitalocean.app/api/offers/${shop}.json`)
                     .then((res) => res.json())
@@ -125,11 +124,6 @@ const LandingPage: React.FC = () => {
             );
         }
         Promise.all(fetchPromises).catch((error) => console.error("Error fetching shop offers:", error));
-    };
-
-    const handleShopVisibilityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedOptions = Array.from(event.target.selectedOptions, (option) => option.value);
-        setVisibleShops(selectedOptions);
     };
 
     const handlePrev = () => {
@@ -168,7 +162,7 @@ const LandingPage: React.FC = () => {
             });
 
         const fetchPromises = [];
-        for (const shop of visibleShops) {
+        for (const shop of ["ikea", "ecco"]) {
             fetchPromises.push(
                 fetch(`https://stores-api-polyu.ondigitalocean.app/api/offers/${shop}.json`)
                     .then((res) => res.json())
@@ -186,7 +180,7 @@ const LandingPage: React.FC = () => {
             );
         }
         Promise.all(fetchPromises).catch((error) => console.error("Error fetching shop offers:", error));
-    }, [selectedCountry, visibleShops]);
+    }, [selectedCountry]);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -207,18 +201,6 @@ const LandingPage: React.FC = () => {
                         <a className="navbar-item">Suggest Improvements</a>
                     </div>
                     <div className="navbar-end">
-                        <div className="navbar-item">
-                            <div className="select is-multiple">
-                                <select multiple value={visibleShops} onChange={handleShopVisibilityChange}>
-                                    <option value="ikea" selected>
-                                        ikea
-                                    </option>
-                                    <option value="ecco" selected>
-                                        ecco
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
                         <div className="navbar-item">
                             <div className="control has-icons-left">
                                 <div className="select">
