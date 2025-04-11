@@ -1,7 +1,7 @@
 {
   "name": "ispct",
-  "version": "2025.4.0",
-  "private": true,
+  "version": "2025.4.1",
+  "private": false,
   "scripts": {
     "start": "react-scripts start",
     "build": "env INLINE_RUNTIME_CHUNK=false react-app-rewired build",
