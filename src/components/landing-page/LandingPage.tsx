@@ -73,7 +73,7 @@ const LandingPage: React.FC = () => {
                     </div>
                 </div>
             </nav>
-            {["best", "ikea", "ecco"].map((shop) => (
+            {["ikea", "ecco"].map((shop) => (
                 <OffersPage shop={shop} selectedCountry={selectedCountry} selectedCurrency={selectedCurrency} selectedOffersBy={selectedOffersBy} />
             ))}
         </div>
