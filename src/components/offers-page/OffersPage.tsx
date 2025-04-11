@@ -8,8 +8,8 @@ interface Offer {
     urls: { [countryCode: string]: { url: string } };
     prices: { [countryCode: string]: { [currencyCode: string]: number } };
     bestDiscount: number;
-    bestValue: { [currencyCode: string]: number };
-    worstPrice: { [currencyCode: string]: number };
+    bestValue: { [countryCode: string]: { [currencyCode: string]: number } };
+    worstPrice: { [countryCode: string]: { [currencyCode: string]: number } };
     shopName?: string;
 }
 
@@ -83,7 +83,7 @@ const OffersPage: React.FC<{ shop: string; selectedCountry: string; selectedCurr
                                     </span>
                                     <span className="tag is-info is-light">
                                         <s>
-                                            {offer.worstPrice[selectedCurrency].toFixed(2)} {selectedCurrency}
+                                            {offer.worstPrice[selectedCountry][selectedCurrency].toFixed(2)} {selectedCurrency}
                                         </s>
                                     </span>
                                 </div>
