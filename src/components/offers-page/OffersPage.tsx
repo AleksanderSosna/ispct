@@ -10,7 +10,6 @@ interface Offer {
     bestDiscount: number;
     bestValue: { [currencyCode: string]: number };
     worstPrice: { [currencyCode: string]: number };
-    shopName?: string;
 }
 
 const OffersPage: React.FC<{ shop: string; selectedCountry: string; selectedCurrency: string; selectedOffersBy: string }> = ({
@@ -62,30 +61,27 @@ const OffersPage: React.FC<{ shop: string; selectedCountry: string; selectedCurr
                         <div className="card">
                             <a href={offer.urls[selectedCountry].url}>
                                 <header className="card-header">
-                                    <p className="card-header-title is-clipped" style={{ maxWidth: "80%" }}>
-                                        {offer.name}
-                                    </p>
-                                    {offer.shopName && <span className="tag is-link">{offer.shopName.charAt(0).toUpperCase() + offer.shopName.slice(1)}</span>}
+                                    <p className="card-header-title is-clipped">{offer.name}</p>
                                 </header>
                                 <div className="card-image">
                                     <figure className="image is-4by3">
                                         <img src={offer.imageUrl} alt={`offer ${offer.id}`} />
                                     </figure>
                                     <div className="is-overlay" style={{ top: "auto", padding: "0.5rem" }}>
-                                        <span className="tag is-danger">-{(offer.bestDiscount * 100).toFixed(2)}%</span>
+                                        <span className="tag is-danger">-{(offer.bestDiscount * 100).toFixed(0)}%</span>
                                     </div>
                                 </div>
                             </a>
                             <div className="card-content">
                                 <div className="content">
-                                    <span className="tag is-success is-medium">
-                                        {offer.prices[selectedCountry][selectedCurrency].toFixed(2)} {selectedCurrency}
-                                    </span>
-                                    <span className="tag is-info is-light">
+                                    <p className="title is-5 has-text-success">
+                                        {offer.prices[selectedCountry][selectedCurrency].toFixed(0)} {selectedCurrency}
+                                    </p>
+                                    <p className="subtitle is-6 has-text-grey-light">
                                         <s>
-                                            {offer.worstPrice[selectedCurrency].toFixed(2)} {selectedCurrency}
+                                            {offer.worstPrice[selectedCurrency].toFixed(0)} {selectedCurrency}
                                         </s>
-                                    </span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
