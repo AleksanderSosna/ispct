@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
-import OffersPage from "../offers-page/OffersPage";
+import OffersList from "../offers-list/OffersList";
+import OfferPage from "../offer-page/OfferPage";
 
-const LandingPage: React.FC = () => {
+const LandingPage: React.FC<{ showOffer?: boolean }> = ({ showOffer }) => {
+    const { shop, productId } = useParams();
     const [selectedCountry, setSelectedCountry] = useState<string>("pl");
     const [selectedCurrency, setSelectedCurrency] = useState<string>("PLN");
     const [selectedOffersBy, setSelectedOffersBy] = useState<"byValue" | "byDiscount">("byValue");
@@ -91,9 +94,11 @@ const LandingPage: React.FC = () => {
                     </div>
                 </div>
             </nav>
-            {["ikea", "ecco"].map((shop) => (
-                <OffersPage shop={shop} selectedCountry={selectedCountry} selectedCurrency={selectedCurrency} selectedOffersBy={selectedOffersBy} />
-            ))}
+            {showOffer && productId && shop ? (
+                <OfferPage shop={shop} productId={productId} selectedCountry={selectedCountry} selectedCurrency={selectedCurrency} selectedOffersBy={selectedOffersBy} />
+            ) : (
+                ["ikea", "ecco"].map((shop) => <OffersList shop={shop} selectedCountry={selectedCountry} selectedCurrency={selectedCurrency} selectedOffersBy={selectedOffersBy} />)
+            )}
         </div>
     );
 };

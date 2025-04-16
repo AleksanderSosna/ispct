@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface Offer {
     id: string;
@@ -12,7 +13,7 @@ interface Offer {
     worstPrice: { [currencyCode: string]: number };
 }
 
-const OffersPage: React.FC<{ shop: string; selectedCountry: string; selectedCurrency: string; selectedOffersBy: string }> = ({
+const OffersList: React.FC<{ shop: string; selectedCountry: string; selectedCurrency: string; selectedOffersBy: string }> = ({
     shop,
     selectedCountry,
     selectedCurrency,
@@ -59,7 +60,7 @@ const OffersPage: React.FC<{ shop: string; selectedCountry: string; selectedCurr
                 {offers.map((offer, index) => (
                     <div className="cell">
                         <div className="card">
-                            <a href={offer.urls[selectedCountry].url}>
+                            <Link to={`/offer/${shop}/${offer.id}`}>
                                 <header className="card-header">
                                     <p className="card-header-title is-clipped">{offer.name}</p>
                                 </header>
@@ -71,7 +72,7 @@ const OffersPage: React.FC<{ shop: string; selectedCountry: string; selectedCurr
                                         <span className="tag is-danger">-{(offer.bestDiscount * 100).toFixed(0)}%</span>
                                     </div>
                                 </div>
-                            </a>
+                            </Link>
                             <div className="card-content">
                                 <div className="content">
                                     <p className="title is-5 has-text-success">
@@ -92,4 +93,4 @@ const OffersPage: React.FC<{ shop: string; selectedCountry: string; selectedCurr
     );
 };
 
-export default OffersPage;
+export default OffersList;

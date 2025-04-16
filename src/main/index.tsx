@@ -11,6 +11,7 @@ root.render(
             <div id="main">
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
+                    <Route path="/offer/:shop/:productId" element={<LandingPage showOffer={true} />} />
                 </Routes>
             </div>
         </Router>
