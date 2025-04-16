@@ -22,7 +22,7 @@ const OfferPage: React.FC<{
 
     useEffect(() => {
         // Fetch specific offer data
-        fetch(`https://stores-api-polyu.ondigitalocean.app/api/${shop}/${productId}.json`)
+        fetch(`https://stores-api-polyu.ondigitalocean.app/api/${shop}/products/${productId}.json`)
             .then((response) => response.json())
             .then((data) => {
                 setOffer(data);
