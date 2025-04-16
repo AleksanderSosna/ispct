@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import OffersList from "../offers-list/OffersList";
 import OfferPage from "../offer-page/OfferPage";
@@ -50,9 +50,18 @@ const LandingPage: React.FC<{ showOffer?: boolean }> = ({ showOffer }) => {
                 </div>
                 <div id="navbar" className={`navbar-menu ${isActive ? "is-active" : ""}`}>
                     <div className="navbar-start">
-                        <a className="navbar-item">Home</a>
-                        <a className="navbar-item">About</a>
-                        <a className="navbar-item">Suggest Improvements</a>
+                        <Link to={`/`}>
+                            <a className="navbar-item">Home</a>
+                        </Link>
+                        <Link to={`/about`}>
+                            <a className="navbar-item">About</a>
+                        </Link>
+                        <Link to={`/suggest-improvements`}>
+                            <a className="navbar-item">Suggest Improvements</a>
+                        </Link>
+                        <Link to={`/contact-us`}>
+                            <a className="navbar-item">Contact Us</a>
+                        </Link>
                     </div>
                     <div className="navbar-end">
                         <div className="navbar-item">
