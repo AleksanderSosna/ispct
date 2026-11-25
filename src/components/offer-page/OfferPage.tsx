@@ -39,7 +39,7 @@ const OfferPage: React.FC<{
 
     return (
         <div className="container">
-            <Link to="/">
+            <Link to={`/store/${shop}`}>
                 <button className="button is-light">
                     <span className="icon-text">
                         <span className="material-icons"> arrow_back </span>

@@ -4,8 +4,14 @@ import { Link, useParams } from "react-router-dom";
 import OffersList from "../offers-list/OffersList";
 import OfferPage from "../offer-page/OfferPage";
 
+const stores = [
+    { slug: "ikea", name: "IKEA" },
+    { slug: "ecco", name: "ECCO" },
+];
+
 const LandingPage: React.FC<{ showOffer?: boolean }> = ({ showOffer }) => {
     const { shop, productId } = useParams();
+    const selectedStore = stores.find((store) => store.slug === shop);
     const [selectedCountry, setSelectedCountry] = useState<string>("pl");
     const [selectedCurrency, setSelectedCurrency] = useState<string>("PLN");
     const [selectedOffersBy, setSelectedOffersBy] = useState<"byValue" | "byDiscount">("byValue");
@@ -105,8 +111,35 @@ const LandingPage: React.FC<{ showOffer?: boolean }> = ({ showOffer }) => {
             </nav>
             {showOffer && productId && shop ? (
                 <OfferPage shop={shop} productId={productId} selectedCountry={selectedCountry} selectedCurrency={selectedCurrency} selectedOffersBy={selectedOffersBy} />
+            ) : shop && selectedStore ? (
+                <main className="container">
+                    <OffersList
+                        shop={shop}
+                        storeName={selectedStore.name}
+                        selectedCountry={selectedCountry}
+                        selectedCurrency={selectedCurrency}
+                        selectedOffersBy={selectedOffersBy}
+                    />
+                </main>
             ) : (
-                ["ikea", "ecco"].map((shop) => <OffersList shop={shop} selectedCountry={selectedCountry} selectedCurrency={selectedCurrency} selectedOffersBy={selectedOffersBy} />)
+                <main className="container">
+                    <section className="section px-0">
+                        <h1 className="title is-2">Choose a store</h1>
+                        <p className="subtitle is-5">Select a store to compare its current offers.</p>
+                        <div className="columns is-multiline">
+                            {stores.map((store) => (
+                                <div key={store.slug} className="column is-half-tablet is-one-third-desktop is-flex">
+                                    <Link to={`/store/${store.slug}`} className="card is-flex is-flex-direction-column is-flex-grow-1">
+                                        <div className="card-content is-flex is-flex-direction-column is-justify-content-space-between is-flex-grow-1">
+                                            <p className="title is-4">{store.name}</p>
+                                            <span className="has-text-link">Browse offers</span>
+                                        </div>
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                </main>
             )}
         </div>
     );

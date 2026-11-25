@@ -13,8 +13,9 @@ interface Offer {
     worstPrice: { [currencyCode: string]: number };
 }
 
-const OffersList: React.FC<{ shop: string; selectedCountry: string; selectedCurrency: string; selectedOffersBy: string }> = ({
+const OffersList: React.FC<{ shop: string; storeName: string; selectedCountry: string; selectedCurrency: string; selectedOffersBy: string }> = ({
     shop,
+    storeName,
     selectedCountry,
     selectedCurrency,
     selectedOffersBy,
@@ -23,6 +24,8 @@ const OffersList: React.FC<{ shop: string; selectedCountry: string; selectedCurr
     const [offers, setOffers] = useState<Offer[]>([]);
 
     useEffect(() => {
+        setLoading(true);
+        setOffers([]);
         fetch(`https://stores-api-polyu.ondigitalocean.app/api/offers/${shop}.json`)
             .then((response) => response.json())
             .then((data) => {
@@ -33,12 +36,12 @@ const OffersList: React.FC<{ shop: string; selectedCountry: string; selectedCurr
                 console.error("Error fetching offers:", error);
                 setLoading(false);
             });
-    }, [selectedCountry, selectedOffersBy]);
+    }, [shop, selectedCountry, selectedOffersBy]);
 
     if (loading) {
         return (
             <>
-                <h1 className="title is-1">{shop.charAt(0).toUpperCase() + shop.slice(1)}</h1>
+                <h1 className="title is-1">{storeName}</h1>
                 <h2 className="subtitle">Loading...</h2>
             </>
         );
@@ -47,18 +50,18 @@ const OffersList: React.FC<{ shop: string; selectedCountry: string; selectedCurr
     if (offers.length === 0) {
         return (
             <>
-                <h1 className="title is-1">{shop.charAt(0).toUpperCase() + shop.slice(1)}</h1>
-                <h2 className="subtitle">no {shop.charAt(0).toUpperCase() + shop.slice(1)} offers at the time, sorry...</h2>
+                <h1 className="title is-1">{storeName}</h1>
+                <h2 className="subtitle">no {storeName} offers at the time, sorry...</h2>
             </>
         );
     }
 
     return (
         <>
-            <h1 className="title is-1">{shop.charAt(0).toUpperCase() + shop.slice(1)}</h1>
+            <h1 className="title is-1">{storeName}</h1>
             <div className="grid">
-                {offers.map((offer, index) => (
-                    <div className="cell">
+                {offers.map((offer) => (
+                    <div key={offer.id} className="cell">
                         <div className="card">
                             <Link to={`/offer/${shop}/${offer.id}`}>
                                 <header className="card-header">
