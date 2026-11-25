@@ -2,6 +2,7 @@
   "name": "ispct",
   "version": "2026.11.25",
   "private": false,
+  "license": "UNLICENSED",
   "scripts": {
     "start": "react-scripts start",
     "build": "env INLINE_RUNTIME_CHUNK=false react-app-rewired build",

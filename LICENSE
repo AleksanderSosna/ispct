@@ -1,10 +1,15 @@
 Copyright (c) 2026 Aleksander Sosna. All rights reserved.
 
-This software and its associated source code are proprietary. No license or
-other rights are granted to use, copy, modify, distribute, sublicense, or
-create derivative works of this software without prior written permission
-from the copyright holder.
+Except for third-party software or materials, which remain subject to their
+respective license terms and notices, the original portions of this software
+and its associated source code are proprietary and all rights reserved.
+Nothing in this notice modifies or limits the terms governing third-party
+components.
 
-This software is provided "AS IS", without warranty of any kind, express or
-implied. In no event shall the copyright holder be liable for any claim,
-damages, or other liability arising from the use of this software.
+No license or other rights are granted to use, copy, modify, distribute,
+sublicense, or create derivative works of the proprietary portions without
+prior written permission from the copyright holder.
+
+The proprietary portions are provided "AS IS", without warranty of any kind,
+express or implied. In no event shall the copyright holder be liable for any
+claim, damages, or other liability arising from the use of those portions.
