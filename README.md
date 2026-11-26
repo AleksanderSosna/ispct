@@ -1,6 +1,6 @@
 # International Store Prices Comparison Tool
 
-A React-based web application for exploring and comparing product offers across international IKEA, ECCO, and C&A stores.
+A React-based web application for exploring and comparing product offers across international IKEA, ECCO, C&A, Deichmann, and Reserved stores.
 
 **Live website:** [stores-api-polyu.ondigitalocean.app](https://stores-api-polyu.ondigitalocean.app/)
 
@@ -10,7 +10,7 @@ ISPCT helps shoppers compare product prices, discounts, and store availability a
 
 ## Features
 
-- Browse current offers from **IKEA**, **ECCO**, and **C&A**
+- Browse current offers from **IKEA**, **ECCO**, **C&A**, **Deichmann**, and **Reserved**
 - Compare offers from **Poland** and **Czechia**
 - Switch between **PLN** and **CZK**
 - Sort products by:
@@ -60,6 +60,8 @@ Example catalogue endpoints:
 /api/offers/ikea.json
 /api/offers/ecco.json
 /api/offers/c-and-a.json
+/api/offers/deichmann.json
+/api/offers/reserved.json
 ```
 
 Example product endpoint:
