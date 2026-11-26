@@ -7,6 +7,7 @@ import OfferPage from "../offer-page/OfferPage";
 const stores = [
     { slug: "ikea", name: "IKEA" },
     { slug: "ecco", name: "ECCO" },
+    { slug: "c-and-a", name: "C&A" },
 ];
 
 const LandingPage: React.FC<{ showOffer?: boolean }> = ({ showOffer }) => {
