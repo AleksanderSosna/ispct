@@ -9,7 +9,6 @@ const stores = [
     { slug: "ecco", name: "ECCO" },
     { slug: "c-and-a", name: "C&A" },
     { slug: "deichmann", name: "Deichmann" },
-    { slug: "reserved", name: "Reserved" },
 ];
 
 const LandingPage: React.FC<{ showOffer?: boolean }> = ({ showOffer }) => {
